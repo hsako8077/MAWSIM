@@ -4,7 +4,12 @@
 window.onload = function() {
   // YOUR_SCRIPT_URL を実際のURLに置き換えてください
   fetch('https://script.google.com/macros/s/AKfycbyYg8FZYopp9ywpZ-IhKpEmQNX32KuoEMe4tuMlkiPtuUK-MGoyHjfX6gH8CWmJZU1n/exec?action=getProducts')
-    .then(response => response.json())
+     .then(response => {
+      if (!response.ok) {
+        throw new Error('ネットワーク応答が正常ではありません。');
+      }
+      return response.json();
+    })
     .then(data => {
       initializeAutocomplete(data);
     })
